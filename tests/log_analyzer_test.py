@@ -28,12 +28,13 @@ class TestLogAnalyzer:
         assert result
 
     @pytest.mark.exceptions
-    def test__is_valid_log_filename__empty_filename__throws_argument_exception(self):
+    def test__is_valid_log_filename__empty_filename__throws_argument_exception(
+        self
+    ):
         analyzer = LogAnalyzer()
 
         with pytest.raises(ValueError):
             analyzer.is_valid_log_filename("")
-
 
     @pytest.mark.parametrize(
         "input,expected",
@@ -42,7 +43,11 @@ class TestLogAnalyzer:
             ("validname.slf", True),
         ]
     )
-    def test__is_valid_log_filename__when_called__changes_was_last_filename_valid(self, input: str, expected: bool):
+    def test__is_valid_log_filename__when_called__changes_was_last_filename_valid(
+        self,
+        input: str,
+        expected: bool
+    ):
         analyzer = LogAnalyzer()
 
         analyzer.is_valid_log_filename(input)
