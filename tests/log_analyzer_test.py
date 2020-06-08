@@ -1,3 +1,4 @@
+import pytest
 from log_analyzer import LogAnalyzer
 
 
@@ -9,16 +10,10 @@ class TestLogAnalyzer:
 
         assert not result
 
-    def test__is_valid_log_filename__good_extension_lowercase_returns_true(self):
+    @pytest.mark.parametrize("input", ["filewithgoodextensionlower.slf", "filewithgoodextensionupper.SLF"])
+    def test__is_valid_log_filename__valid_extension__returns_true(self, input):
         analyzer = LogAnalyzer()
 
-        result = analyzer.is_valid_log_filename("filewithgoodextensionlower.slf")
-
-        assert result
-
-    def test__is_valid_log_filename__good_extension_uppercase_returns_true(self):
-        analyzer = LogAnalyzer()
-
-        result = analyzer.is_valid_log_filename("filewithgoodextensionupper.SLF")
+        result = analyzer.is_valid_log_filename(input)
 
         assert result
