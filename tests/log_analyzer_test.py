@@ -26,3 +26,6 @@ class TestLogAnalyzer:
         result = analyzer.is_valid_log_filename(input)
 
         assert result
+
+    def test__is_valid_log_filename__empty_filename__throws_argument_exception(self):
+        assert False
