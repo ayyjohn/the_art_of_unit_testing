@@ -3,12 +3,14 @@ class LogAnalyzer:
         self._was_last_filename_valid = False
 
     def is_valid_log_filename(self, filename: str) -> bool:
+        self.was_last_filename_valid = False
         if not filename:
             raise ValueError("filename has to be provided")
 
         if not filename.upper().endswith(".SLF"):
             return False
 
+        self.was_last_filename_valid = True
         return True
 
     @property
