@@ -33,3 +33,18 @@ class TestLogAnalyzer:
 
         with pytest.raises(ValueError):
             analyzer.is_valid_log_filename("")
+
+
+    @pytest.mark.parametrize(
+        "input,expected",
+        [
+            ("invalidname.foo", False),
+            ("validname.slf", True),
+        ]
+    )
+    def test__is_valid_log_filename__when_called__changes_was_last_filename_valid(self, input: str, expected: bool):
+        analyzer = LogAnalyzer()
+
+        analyzer.is_valid_log_filename(input)
+
+        assert analyzer.was_last_filename_valid == expected
