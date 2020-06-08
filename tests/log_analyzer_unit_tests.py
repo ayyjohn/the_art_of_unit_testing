@@ -18,7 +18,11 @@ class LogAnalyzerTests(unittest.TestCase):
         self.assertTrue(result)
 
     def test__is_valid_log_filename__good_extension_uppercase_returns_true(self):
-        assert False
+        analyzer = LogAnalyzer()
+
+        result = analyzer.is_valid_log_filename("filewithgoodextensionupper.SLF")
+
+        self.assertTrue(result)
 
 
 if __name__ == "__main__":
