@@ -31,4 +31,4 @@ class TestLogAnalyzer:
         analyzer = LogAnalyzer()
 
         with pytest.raises(ValueError):
-            result = analyzer.is_valid_log_filename("")
+            analyzer.is_valid_log_filename("")
