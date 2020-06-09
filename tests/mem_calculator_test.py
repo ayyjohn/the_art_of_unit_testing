@@ -9,7 +9,7 @@ class TestMemCalculator:
 
         last_total = calculator.total
 
-        assert last_sum == 0
+        assert last_total == 0
 
     def test__add__when_called__changes_sum(self):
         calculator = MemCalculator()
