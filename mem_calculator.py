@@ -1,6 +1,6 @@
 class MemCalculator:
     def __init__(self):
-        pass
+        self._total = 0
 
-    def sum(self):
-        return 0
+    def total(self):
+        return self._total
