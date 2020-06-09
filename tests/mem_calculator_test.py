@@ -15,6 +15,6 @@ class TestMemCalculator:
         calculator = MemCalculator()
 
         calculator.add(1)
-        total = calculator.total
+        total = calculator.total()
 
         assert total == 1
