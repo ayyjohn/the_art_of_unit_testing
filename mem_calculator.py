@@ -4,3 +4,6 @@ class MemCalculator:
 
     def total(self):
         return self._total
+
+    def add(self, number: int):
+        self._total += number
