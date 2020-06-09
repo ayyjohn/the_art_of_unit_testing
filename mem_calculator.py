@@ -4,7 +4,9 @@ class MemCalculator:
 
     @property
     def total(self):
-        return self._total
+        output = self._total
+        self._total = 0
+        return output
 
     def add(self, number: int):
         self._total += number
