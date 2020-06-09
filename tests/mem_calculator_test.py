@@ -7,7 +7,7 @@ class TestMemCalculator:
     def test__sum__by_default__returns_zero(self):
         calculator = MemCalculator()
 
-        last_sum = calculator.total()
+        last_total = calculator.total
 
         assert last_sum == 0
 
@@ -15,6 +15,6 @@ class TestMemCalculator:
         calculator = MemCalculator()
 
         calculator.add(1)
-        total = calculator.total()
+        total = calculator.total
 
         assert total == 1
