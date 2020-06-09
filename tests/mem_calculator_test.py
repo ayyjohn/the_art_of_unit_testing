@@ -19,5 +19,14 @@ class TestMemCalculator:
 
         assert total == 1
 
+    def test__total__when_called__resets_total(self):
+        calculator = self._make_calculator()
+
+        calculator.add(1)
+        calculator.total
+        second_total = calculator.total
+
+        assert second_total == 0
+
     def _make_calculator(self):
         return MemCalculator()
