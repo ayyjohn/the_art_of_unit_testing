@@ -10,3 +10,11 @@ class TestMemCalculator:
         last_sum = calculator.sum()
 
         assert last_sum == 0
+
+    def test__add__when_called__changes_sum(self):
+        calculator = MemCalculator()
+
+        calculator.add(1)
+        total = calculator.total
+
+        assert total == 1
