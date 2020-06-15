@@ -6,4 +6,6 @@ class FakeFileExtensionManager(FileExtensionManager):
         self.will_be_valid = False
 
     def is_valid(self, filename: str) -> bool:
+        if not filename:
+            raise ValueError("filename has to be provided")
         return self.will_be_valid
