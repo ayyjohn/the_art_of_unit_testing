@@ -1,17 +1,18 @@
+from file_extension_manager import FileExtensionManager
+
+
 class LogAnalyzer:
     def __init__(self):
         self._was_last_filename_valid = False
 
     def is_valid_log_filename(self, filename: str) -> bool:
-        self.was_last_filename_valid = False
-        if not filename:
-            raise ValueError("filename has to be provided")
+        manager = FileExtensionManager()
+        self._was_last_filename_valid = False
 
-        if not filename.upper().endswith(".SLF"):
-            return False
+        result = manager.is_valid(filename)
+        self.was_last_filename_valid = result
 
-        self.was_last_filename_valid = True
-        return True
+        return result
 
     @property
     def was_last_filename_valid(self):
