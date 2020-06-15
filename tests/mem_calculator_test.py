@@ -1,5 +1,3 @@
-import pytest
-
 from mem_calculator import MemCalculator
 
 
