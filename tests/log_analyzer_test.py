@@ -44,16 +44,20 @@ class TestLogAnalyzer:
 
 
 def _make_log_analyzer():
-    return LogAnalyzer(FakeFileExtensionManager())
+    return LogAnalyzer()
 
 
 def _make_valid_log_analyzer():
     always_valid_fake_file_extension_manager = FakeFileExtensionManager()
     always_valid_fake_file_extension_manager.will_be_valid = True
-    return LogAnalyzer(always_valid_fake_file_extension_manager)
+    log_analyzer = LogAnalyzer()
+    log_analyzer.file_extension_manager = always_valid_fake_file_extension_manager
+    return log_analyzer
 
 
 def _make_invalid_log_analyzer():
     always_invalid_fake_file_extension_manager = FakeFileExtensionManager()
     always_invalid_fake_file_extension_manager.will_be_valid = False
-    return LogAnalyzer(always_invalid_fake_file_extension_manager)
+    log_analyzer = LogAnalyzer()
+    log_analyzer.file_extension_manager = always_invalid_fake_file_extension_manager
+    return log_analyzer
