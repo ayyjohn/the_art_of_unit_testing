@@ -9,3 +9,6 @@ class FileExtensionManagerFactory:
         if self.custom_manager is not None:
             return self.custom_manager
         return TextConfigBasedFileExtensionManager()
+
+
+FILE_EXTENSION_MANAGER_FACTORY = FileExtensionManagerFactory()
