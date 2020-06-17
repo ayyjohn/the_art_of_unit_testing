@@ -22,13 +22,6 @@ class TestLogAnalyzer:
 
         assert result
 
-    @pytest.mark.exceptions
-    def test__is_valid_log_filename__empty_filename__throws_argument_exception(self):
-        log_analyzer = _make_log_analyzer_with_valid_file_extension_manager()
-
-        with pytest.raises(ValueError):
-            log_analyzer.is_valid_log_filename("")
-
     @pytest.mark.parametrize(
         "input_,expected", [("invalidname.foo", False), ("validname.slf", True), ]
     )
