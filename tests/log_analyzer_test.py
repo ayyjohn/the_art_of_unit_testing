@@ -2,11 +2,14 @@ import pytest
 
 from log_analyzer import LogAnalyzer
 from fake_file_extension_manager import FakeFileExtensionManager
+from file_extension_manager_factory import FILE_EXTENSION_MANAGER_FACTORY
 
 
 class TestLogAnalyzer:
     def test__is_valid_log_filename__bad_extension__returns_false(self):
-        log_analyzer = _make_log_analyzer_with_invalid_file_extension_manager()
+
+        FILE_EXTENSION_MANAGER_FACTORY.custom_manager = _get_always_invalid_fake_file_extension_manager()
+        log_analyzer = _make_log_analyzer()
 
         result = log_analyzer.is_valid_log_filename("filewithbadextension.foo")
 
@@ -16,7 +19,8 @@ class TestLogAnalyzer:
         "input_", ["filewithgoodextensionlower.slf", "filewithgoodextensionupper.SLF", ]
     )
     def test__is_valid_log_filename__valid_extension__returns_true(self, input_: str):
-        log_analyzer = _make_log_analyzer_with_valid_file_extension_manager()
+        FILE_EXTENSION_MANAGER_FACTORY.custom_manager = _get_always_valid_fake_file_extension_manager()
+        log_analyzer = _make_log_analyzer()
 
         result = log_analyzer.is_valid_log_filename(input_)
 
@@ -28,8 +32,9 @@ class TestLogAnalyzer:
     def test__is_valid_log_filename__when_called__changes_was_last_filename_valid(
             self, input_: str, expected: bool
     ):
+        FILE_EXTENSION_MANAGER_FACTORY.custom_manager = _get_fake_file_extension_manager_with_output(
+            expected)
         analyzer = _make_log_analyzer()
-        analyzer.file_extension_manager.will_be_valid = expected
 
         analyzer.is_valid_log_filename(input_)
 
@@ -40,17 +45,15 @@ def _make_log_analyzer():
     return LogAnalyzer()
 
 
-def _make_log_analyzer_with_valid_file_extension_manager():
-    always_valid_fake_file_extension_manager = FakeFileExtensionManager()
-    always_valid_fake_file_extension_manager.will_be_valid = True
-    log_analyzer = LogAnalyzer()
-    log_analyzer.file_extension_manager = always_valid_fake_file_extension_manager
-    return log_analyzer
+def _get_always_valid_fake_file_extension_manager():
+    return _get_fake_file_extension_manager_with_output(True)
 
 
-def _make_log_analyzer_with_invalid_file_extension_manager():
-    always_invalid_fake_file_extension_manager = FakeFileExtensionManager()
-    always_invalid_fake_file_extension_manager.will_be_valid = False
-    log_analyzer = LogAnalyzer()
-    log_analyzer.file_extension_manager = always_invalid_fake_file_extension_manager
-    return log_analyzer
+def _get_always_invalid_fake_file_extension_manager():
+    return _get_fake_file_extension_manager_with_output(False)
+
+
+def _get_fake_file_extension_manager_with_output(output: bool):
+    manager = FakeFileExtensionManager()
+    manager.will_be_valid = output
+    return manager
