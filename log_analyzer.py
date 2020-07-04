@@ -1,10 +1,10 @@
-from file_extension_manager_factory import FILE_EXTENSION_MANAGER_FACTORY
+from file_extension_manager import FileExtensionManager
 
 
 class LogAnalyzer:
-    def __init__(self):
+    def __init__(self, file_extension_manager: FileExtensionManager):
         self._was_last_filename_valid = False
-        self.file_extension_manager = FILE_EXTENSION_MANAGER_FACTORY.create()
+        self.file_extension_manager = file_extension_manager
 
     def is_valid_log_filename(self, filename: str) -> bool:
         self._was_last_filename_valid = False
