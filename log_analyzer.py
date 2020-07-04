@@ -9,9 +9,13 @@ class LogAnalyzer:
     def is_valid_log_filename(self, filename: str) -> bool:
         self._was_last_filename_valid = False
 
-        result = self.file_extension_manager.is_valid(filename)
+        result = self._is_valid(filename)
         self.was_last_filename_valid = result
 
+        return result
+
+    def _is_valid(self, filename: str):
+        result = self.file_extension_manager.is_valid(filename)
         return result
 
     @property

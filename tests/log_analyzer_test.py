@@ -1,15 +1,14 @@
 import pytest
 
 from log_analyzer import LogAnalyzer
+from testable_log_analyzer import TestableLogAnalyzer
 from file_extension_manager import FileExtensionManager
 from fake_file_extension_manager import FakeFileExtensionManager
 
 
 class TestLogAnalyzer:
     def test__is_valid_log_filename__bad_extension__returns_false(self):
-        stub = _get_always_invalid_fake_file_extension_manager()
-
-        log_analyzer = _make_log_analyzer(stub)
+        log_analyzer = _make_log_analyzer_with_validation_result(False)
 
         result = log_analyzer.is_valid_log_filename("filewithbadextension.foo")
 
@@ -19,9 +18,7 @@ class TestLogAnalyzer:
         "input_", ["filewithgoodextensionlower.slf", "filewithgoodextensionupper.SLF", ]
     )
     def test__is_valid_log_filename__valid_extension__returns_true(self, input_: str):
-        stub = _get_always_valid_fake_file_extension_manager()
-
-        log_analyzer = _make_log_analyzer(stub)
+        log_analyzer = _make_log_analyzer_with_validation_result(True)
 
         result = log_analyzer.is_valid_log_filename(input_)
 
@@ -33,28 +30,14 @@ class TestLogAnalyzer:
     def test__is_valid_log_filename__when_called__changes_was_last_filename_valid(
             self, input_: str, expected: bool
     ):
-        stub = _get_fake_file_extension_manager_with_output(expected)
-
-        analyzer = _make_log_analyzer(stub)
+        analyzer = _make_log_analyzer_with_validation_result(expected)
 
         analyzer.is_valid_log_filename(input_)
 
         assert analyzer.was_last_filename_valid == expected
 
 
-def _make_log_analyzer(file_extension_manager: FileExtensionManager):
-    return LogAnalyzer(file_extension_manager)
-
-
-def _get_always_valid_fake_file_extension_manager():
-    return _get_fake_file_extension_manager_with_output(True)
-
-
-def _get_always_invalid_fake_file_extension_manager():
-    return _get_fake_file_extension_manager_with_output(False)
-
-
-def _get_fake_file_extension_manager_with_output(output: bool):
-    manager = FakeFileExtensionManager()
-    manager.will_be_valid = output
-    return manager
+def _make_log_analyzer_with_validation_result(result: bool):
+    log_analyzer = TestableLogAnalyzer()
+    log_analyzer.is_supported = result
+    return log_analyzer
