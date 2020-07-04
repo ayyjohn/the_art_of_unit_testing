@@ -3,7 +3,6 @@ import pytest
 from log_analyzer import LogAnalyzer
 from file_extension_manager import FileExtensionManager
 from fake_file_extension_manager import FakeFileExtensionManager
-from file_extension_manager_factory import FILE_EXTENSION_MANAGER_FACTORY
 
 
 class TestLogAnalyzer:
